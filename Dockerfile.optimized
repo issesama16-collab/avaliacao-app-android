@@ -1,0 +1,63 @@
+# Dockerfile otimizado com multi-stage build para AvaliaApp Android
+# Build: docker build -f Dockerfile.optimized -t avaliacao-app:slim .
+# Run: docker run --rm -v $(pwd)/app/build/outputs:/outputs avaliacao-app:slim
+
+# Stage 1: Builder
+FROM ubuntu:22.04 as builder
+
+ENV ANDROID_HOME=/opt/android-sdk \
+    PATH=$PATH:/opt/android-sdk/cmdline-tools/latest/bin:/opt/android-sdk/platform-tools \
+    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
+    GRADLE_USER_HOME=/gradle-cache
+
+# Instalar dependências mínimas
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openjdk-11-jdk-headless \
+    wget \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Criar diretórios
+RUN mkdir -p $ANDROID_HOME $GRADLE_USER_HOME
+
+# Download SDK
+RUN cd $ANDROID_HOME && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && \
+    unzip -q commandlinetools-linux-9477386_latest.zip && \
+    rm commandlinetools-linux-9477386_latest.zip && \
+    mkdir -p cmdline-tools/latest && \
+    mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
+
+# Aceitar licenças
+RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+
+# Instalar SDK components
+RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+    "platforms;android-34" \
+    "build-tools;34.0.0" \
+    "platform-tools"
+
+# Copiar projeto
+WORKDIR /app
+COPY . .
+
+# Build
+RUN chmod +x ./gradlew && \
+    ./gradlew clean assembleDebug assembleRelease \
+    --gradle-user-home=$GRADLE_USER_HOME \
+    --no-daemon
+
+# Stage 2: Runtime (apenas APKs)
+FROM alpine:latest
+
+RUN apk add --no-cache bash
+
+WORKDIR /outputs
+
+# Copiar APKs do builder
+COPY --from=builder /app/app/build/outputs/apk/debug/app-debug.apk .
+COPY --from=builder /app/app/build/outputs/apk/release/app-release-unsigned.apk .
+
+# Listar arquivos
+CMD ["sh", "-c", "echo '✅ APKs prontos:' && ls -lh"]

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AvaliaApp</string>
+    <string name="app_title">Plataforma de Avaliações</string>
+    <string name="app_description">Crie formulários elegantes, colete respostas e analise resultados</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Início</string>
+    <string name="nav_dashboard">Painel</string>
+    <string name="nav_surveys">Avaliações</string>
+
+    <!-- Actions -->
+    <string name="action_create">Criar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Deletar</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_submit">Enviar</string>
+    <string name="action_share">Compartilhar</string>
+    <string name="action_export">Exportar</string>
+    <string name="action_back">Voltar</string>
+
+    <!-- Survey -->
+    <string name="survey_title">Título da Avaliação</string>
+    <string name="survey_description">Descrição</string>
+    <string name="survey_status_draft">Rascunho</string>
+    <string name="survey_status_active">Ativa</string>
+    <string name="survey_status_closed">Encerrada</string>
+
+    <!-- Questions -->
+    <string name="question_type_text">Texto Curto</string>
+    <string name="question_type_textarea">Texto Longo</string>
+    <string name="question_type_single">Escolha Única</string>
+    <string name="question_type_multiple">Múltipla Escolha</string>
+    <string name="question_type_scale">Escala Numérica</string>
+    <string name="question_type_rating">Avaliação por Estrelas</string>
+
+    <!-- Messages -->
+    <string name="msg_no_surveys">Nenhuma avaliação ainda</string>
+    <string name="msg_create_first">Crie sua primeira avaliação para começar</string>
+    <string name="msg_offline">Modo offline - dados serão sincronizados</string>
+    <string name="msg_syncing">Sincronizando dados...</string>
+    <string name="msg_sync_complete">Sincronização concluída</string>
+    <string name="msg_error">Ocorreu um erro</string>
+</resources>

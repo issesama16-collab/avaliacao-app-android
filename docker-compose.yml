@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: avaliacao-app-builder
+    volumes:
+      - ./app/build/outputs:/outputs
+      - gradle-cache:/root/.gradle
+    environment:
+      - GRADLE_USER_HOME=/root/.gradle
+    command: >
+      sh -c "
+      echo '=== AvaliaApp Android Build ===' &&
+      echo 'Compilando Debug APK...' &&
+      ./gradlew assembleDebug &&
+      echo 'Compilando Release APK...' &&
+      ./gradlew assembleRelease &&
+      echo '' &&
+      echo '✅ Build concluído!' &&
+      echo 'APKs gerados:' &&
+      ls -lh app/build/outputs/apk/debug/ &&
+      ls -lh app/build/outputs/apk/release/ &&
+      echo '' &&
+      echo 'Copiando para /outputs...' &&
+      cp app/build/outputs/apk/debug/app-debug.apk /outputs/ &&
+      cp app/build/outputs/apk/release/app-release-unsigned.apk /outputs/ &&
+      echo '✅ Pronto para download!'
+      "
+
+volumes:
+  gradle-cache:

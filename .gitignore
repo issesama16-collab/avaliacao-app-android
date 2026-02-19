@@ -1,0 +1,82 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+.DS_Store
+
+# Android Studio generated files and folders
+.idea/
+.classpath
+.c9/
+*.class
+*.dex
+*.ear
+*.iml
+*.jar
+*.rar
+*.war
+*.zip
+*.tar.gz
+*.rar
+.idea/
+.gradle
+.gradle/
+local.properties
+*.iml
+
+# Android Profiler and other Studio logs
+.android/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (if ever added)
+google-services.json
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/frameit/screenshots
+fastlane/test_output
+
+# Version control
+.svn/
+
+# Mac files
+.DS_Store
+
+# LLDB/Xcode
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+*.xcworkspace
+xcuserdata/
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android InstantRun and Profiler and other Studio logs
+.externalNativeBuild
+.cxx/
+*.swp
+*~.nib
+*.plcrash
